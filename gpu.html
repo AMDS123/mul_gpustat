@@ -38,7 +38,7 @@
         if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
         {
             var content = xmlHttpRequest.responseText;
-            content = content.replace(/\n/g, "<br>")
+//            content = content.replace(/\n/g, "<br>")
             document.getElementById("content").innerHTML = content;
         }
     }
