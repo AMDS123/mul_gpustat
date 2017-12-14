@@ -43,13 +43,13 @@ class TransServer:
                     print("---------------------------------------------------------------")
                     gpu = gpus[index]
                     print("[{}] {}".format(index, gpu["name"]))
-                    print("memory: {:5d}/{:5d} | used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C".format(
-                        gpu["memory.used"],
-                        gpu["memory.total"],
+                    print("used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C | memory: {:5d}/{:5d}".format(
                         gpu["utilization.gpu"],
                         gpu["power.draw"],
                         gpu["enforced.power.limit"],
-                        gpu["temperature.gpu"]
+                        gpu["temperature.gpu"],
+                        gpu["memory.used"],
+                        gpu["memory.total"]
                 ))
                 print("==============================================================")
         if len(keys) == 0:
