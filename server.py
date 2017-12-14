@@ -79,12 +79,9 @@ class TransServer:
             for index in range(len(gpus)):
                 gpu = gpus[index]
                 if gpu["utilization.gpu"] == 0:
-                    td_class = "IDEL"
-                else:
-                    td_class = "NORMAL"
+                    run_stat = "IDEL"
                 html += "<tr class='" + run_stat + "'>"
-                html += "<td class='{}'>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
-                    td_class,
+                html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
                     index,
                     gpu["utilization.gpu"],
                     gpu["power.draw"],
