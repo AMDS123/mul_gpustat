@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GPU USEAGE</title>
+</head>
+<body>
+
+<h1 id="content"></h1>
+
+</body>
+<script type="text/javascript">
+    var xmlHttpRequest = null;
+    function ajaxRequest() {
+        if(window.ActiveXObject) {
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if(window.XMLHttpRequest) {
+            xmlHttpRequest = new XMLHttpRequest();
+        }
+        if(null != xmlHttpRequest) {
+            xmlHttpRequest.onreadystatechange = ajaxCallBack;
+            xmlHttpRequest.open("GET", "stat.txt", true);
+            xmlHttpRequest.send()
+        }
+    }
+
+    function ajaxCallBack() {
+        if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
+        {
+            var content = xmlHttpRequest.responseText;
+            document.getElementById("content").innerHTML = content;
+        }
+    }
+
+    window.onload = function() {
+        window.setInterval(ajaxRequest, 1000);
+    }
+</script>
+</html>
