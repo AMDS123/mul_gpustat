@@ -2,6 +2,7 @@ import gpustat
 import json
 import argparse
 import zmq
+import time
 
 def get_gpu_stat_json():
     gpustats = gpustat.GPUStatCollection.new_query()
@@ -44,6 +45,8 @@ if __name__ == "__main__":
     while True:
         try:
             stat = get_gpu_stat_json()
+            print(stat)
             client.send(stat)
+            time.sleep(1)
         except KeyboardInterrupt:
             print("exit")
