@@ -44,7 +44,7 @@ class TransServer:
                 gpus = self.stats[key]["gpus"]
                 for index in range(len(gpus)):
                     gpu = gpus[index]
-                    lines.append("[{}] | {:3d}% | {:4d}W/{:3}W | {}C | {:5d}/{:5d} MB | {}\n".format(
+                    lines.append("[{}] | {:3d}% | {:4d}W/{:3}W | {}C | {:5d}MB/{:5d}MB | {}\n".format(
                         index,
                         gpu["utilization.gpu"],
                         gpu["power.draw"],
@@ -79,7 +79,7 @@ class TransServer:
                 for index in range(len(gpus)):
                     gpu = gpus[index]
                     html += "<tr>"
-                    html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}/{:5d} MB</td> <td>{}</td>\n".format(
+                    html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
                         index,
                         gpu["utilization.gpu"],
                         gpu["power.draw"],
