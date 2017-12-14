@@ -38,7 +38,7 @@ class TransServer:
             if time.time() - self.stats[key]["time"] > 10:
                 del self.stats[key]
             else:
-                lines.append("hostname: {}".format(key))
+                lines.append("hostname: {}\n".format(key))
                 #     "====================================================================\n"
                 lines.append("--------------------------------------------------------------------\n")
                 gpus = self.stats[key]["gpus"]
