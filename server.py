@@ -63,6 +63,40 @@ class TransServer:
         with open("stat.txt", "w") as f:
             f.writelines(lines)
 
+    def write_html(self):
+        html = ""
+        html += "<table border='1' cellspacing='0'>"
+        keys = self.stats.keys()
+        for key in keys:
+            if time.time() - self.stats[key]["time"] > 10:
+                del self.stats[key]
+            else:
+                html += "<tr colspan='6'>"
+                html += "<td>hostname: {}</td>".format(key)
+                html += "</tr>"
+
+                gpus = self.stats[key]["gpus"]
+                for index in range(len(gpus)):
+                    gpu = gpus[index]
+                    html += "<tr>"
+                    html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}/{:5d} MB</td> <td>{}</td>\n".format(
+                        index,
+                        gpu["utilization.gpu"],
+                        gpu["power.draw"],
+                        gpu["enforced.power.limit"],
+                        gpu["temperature.gpu"],
+                        gpu["memory.used"],
+                        gpu["memory.total"],
+                        gpu["name"]
+                    )
+                    html += "</tr>"
+        if len(keys) == 0:
+            print("====================================================================\n")
+
+        html += "</table>"
+        with open("stat.html", "w") as f:
+            f.writelines(html)
+
 
 if __name__ == "__main__":
 
@@ -73,6 +107,7 @@ if __name__ == "__main__":
     while True:
         try:
             server.print_stat()
+            server.write_html()
             time.sleep(1)
             os.system("clear")
         except KeyboardInterrupt:
