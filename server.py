@@ -35,26 +35,26 @@ class TransServer:
         lines.append("====================================================================\n")
         keys = self.stats.keys()
         for key in keys:
+            run_stat = "RUNNING"
             if time.time() - self.stats[key]["time"] > 10:
-                del self.stats[key]
-            else:
-                lines.append("hostname: {}\n".format(key))
-                #     "====================================================================\n"
-                lines.append("--------------------------------------------------------------------\n")
-                gpus = self.stats[key]["gpus"]
-                for index in range(len(gpus)):
-                    gpu = gpus[index]
-                    lines.append("[{}] | {:3d}% | {:4d}W/{:3}W | {}C | {:5d}MB/{:5d}MB | {}\n".format(
-                        index,
-                        gpu["utilization.gpu"],
-                        gpu["power.draw"],
-                        gpu["enforced.power.limit"],
-                        gpu["temperature.gpu"],
-                        gpu["memory.used"],
-                        gpu["memory.total"],
-                        gpu["name"]
+                run_stat = "STOP"
+            lines.append("hostname: {} ({})\n".format(key, run_stat))
+            #     "====================================================================\n"
+            lines.append("--------------------------------------------------------------------\n")
+            gpus = self.stats[key]["gpus"]
+            for index in range(len(gpus)):
+                gpu = gpus[index]
+                lines.append("[{}] | {:3d}% | {:4d}W/{:3}W | {}C | {:5d}MB/{:5d}MB | {}\n".format(
+                    index,
+                    gpu["utilization.gpu"],
+                    gpu["power.draw"],
+                    gpu["enforced.power.limit"],
+                    gpu["temperature.gpu"],
+                    gpu["memory.used"],
+                    gpu["memory.total"],
+                    gpu["name"]
                 ))
-                lines.append("====================================================================\n")
+            lines.append("====================================================================\n")
         if len(keys) == 0:
             print("====================================================================\n")
 
@@ -68,28 +68,28 @@ class TransServer:
         html += "<table>"
         keys = self.stats.keys()
         for key in keys:
+            run_stat = "RUNNING"
             if time.time() - self.stats[key]["time"] > 10:
-                del self.stats[key]
-            else:
-                html += "<tr>"
-                html += "<td colspan='6'>hostname: {}</td>".format(key)
-                html += "</tr>"
+                run_stat = "STOP"
+            html += "<tr class='" + run_stat + "'>"
+            html += "<td colspan='6'>hostname: {} ({})</td>".format(key, run_stat)
+            html += "</tr>"
 
-                gpus = self.stats[key]["gpus"]
-                for index in range(len(gpus)):
-                    gpu = gpus[index]
-                    html += "<tr>"
-                    html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
-                        index,
-                        gpu["utilization.gpu"],
-                        gpu["power.draw"],
-                        gpu["enforced.power.limit"],
-                        gpu["temperature.gpu"],
-                        gpu["memory.used"],
-                        gpu["memory.total"],
-                        gpu["name"]
-                    )
-                    html += "</tr>"
+            gpus = self.stats[key]["gpus"]
+            for index in range(len(gpus)):
+                gpu = gpus[index]
+                html += "<tr class='" + run_stat + "'>"
+                html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
+                    index,
+                    gpu["utilization.gpu"],
+                    gpu["power.draw"],
+                    gpu["enforced.power.limit"],
+                    gpu["temperature.gpu"],
+                    gpu["memory.used"],
+                    gpu["memory.total"],
+                    gpu["name"]
+                )
+                html += "</tr>"
         if len(keys) == 0:
             print("====================================================================\n")
 
