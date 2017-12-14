@@ -31,25 +31,26 @@ class TransServer:
         self.stats[hostname] = dict_stat
 
     def print_stat(self):
-        print("======================================================")
+        print("==============================================================")
         keys = self.stats.keys()
         for key in keys:
             if time.time() - self.stats[key]["time"] > 10:
                 del self.stats[key]
             else:
                 print("hostname: {}".format(key))
+                print("---------------------------------------------------------------")
                 gpus = self.stats[key]["gpus"]
                 for index in range(len(gpus)):
-                    print("---------------------------------------------------------------")
                     gpu = gpus[index]
-                    print("[{}] {}".format(index, gpu["name"]))
-                    print("used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C | memory: {:5d}/{:5d}".format(
+                    print("[{}] used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C | memory: {:5d}/{:5d} | ".format(
+                        index,
                         gpu["utilization.gpu"],
                         gpu["power.draw"],
                         gpu["enforced.power.limit"],
                         gpu["temperature.gpu"],
                         gpu["memory.used"],
-                        gpu["memory.total"]
+                        gpu["memory.total"],
+                        gpu["name"]
                 ))
                 print("==============================================================")
         if len(keys) == 0:
