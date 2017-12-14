@@ -58,6 +58,8 @@ class TransServer:
         if len(keys) == 0:
             print("====================================================================\n")
 
+        print(''.join(lines))
+
         with open("stat.txt", "w") as f:
             f.writelines(lines)
 
