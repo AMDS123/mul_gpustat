@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1 id="content"></h1>
+<h2 id="content"></h2>
 
 </body>
 <script type="text/javascript">
@@ -30,6 +30,7 @@
         if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
         {
             var content = xmlHttpRequest.responseText;
+            content = content.replace(/\n/g, "<br>")
             document.getElementById("content").innerHTML = content;
         }
     }
