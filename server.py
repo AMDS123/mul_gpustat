@@ -69,7 +69,7 @@ class TransServer:
         keys = self.stats.keys()
         for key in keys:
             run_stat = "RUNNING"
-            if time.time() - self.stats[key]["time"] > 10:
+            if time.time() - self.stats[key]["time"] > 5:
                 run_stat = "STOP"
             html += "<tr class='" + run_stat + "'>"
             html += "<td colspan='6'>hostname: {} ({})</td>".format(key, run_stat)
