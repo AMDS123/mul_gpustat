@@ -65,14 +65,14 @@ class TransServer:
 
     def write_html(self):
         html = ""
-        html += "<table border='1' cellspacing='0'>"
+        html += "<table>"
         keys = self.stats.keys()
         for key in keys:
             if time.time() - self.stats[key]["time"] > 10:
                 del self.stats[key]
             else:
-                html += "<tr colspan='6'>"
-                html += "<td>hostname: {}</td>".format(key)
+                html += "<tr>"
+                html += "<td colspan='6'>hostname: {}</td>".format(key)
                 html += "</tr>"
 
                 gpus = self.stats[key]["gpus"]
