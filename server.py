@@ -43,7 +43,7 @@ class TransServer:
                 gpus = self.stats[key]["gpus"]
                 for index in range(len(gpus)):
                     gpu = gpus[index]
-                    print("[{}] used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C | memory: {:5d}/{:5d} | {}".format(
+                    print("[{}] | {:3d}% | {:4d}W/{:3}W | {}C | {:5d}/{:5d} MB | {}".format(
                         index,
                         gpu["utilization.gpu"],
                         gpu["power.draw"],
