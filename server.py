@@ -78,7 +78,7 @@ class TransServer:
             gpus = self.stats[key]["gpus"]
             for index in range(len(gpus)):
                 gpu = gpus[index]
-                if run_stat != "STOP" and gpu["utilization.gpu"] < 10:
+                if run_stat != "STOP" and gpu["utilization.gpu"] < 5:
                     run_stat = "IDEL"
                 html += "<tr class='" + run_stat + "'>"
                 html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
