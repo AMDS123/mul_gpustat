@@ -7,6 +7,7 @@ import time
 def get_gpu_stat_json():
     gpustats = gpustat.GPUStatCollection.new_query()
     output = gpustats.jsonify()
+    del output['query_time']
     return json.dumps(output)
 
 class TransClient:
@@ -50,3 +51,4 @@ if __name__ == "__main__":
             time.sleep(1)
         except KeyboardInterrupt:
             print("exit")
+            exit(0)
