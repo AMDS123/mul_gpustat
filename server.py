@@ -42,7 +42,7 @@ class TransServer:
                 for index in range(len(gpus)):
                     print("------------------------------------------------------")
                     gpu = gpus[index]
-                    print("[{}] name: {}".format(index, gpu["name"]))
+                    print("[{}] {}".format(index, gpu["name"]))
                     print("memory: {:5d}/{:5d} | used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C".format(
                         gpu["memory.used"],
                         gpu["memory.total"],
