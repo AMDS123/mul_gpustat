@@ -40,7 +40,7 @@ class TransServer:
                 print("hostname: {}".format(key))
                 print("------------------------------------------------------")
                 for gpu in self.stats[key]["gpus"]:
-                    print("name: {} | memory: {}/{} | used: {:3s}% | power: {}W/{}W | temp: {}C".format(
+                    print("name: {} | memory: {}/{} | used: {:3d}% | power: {}W/{}W | temp: {}C".format(
                         gpu["name"],
                         gpu["memory.used"],
                         gpu["memory.total"],
