@@ -7,7 +7,7 @@ import time
 def get_gpu_stat_json():
     gpustats = gpustat.GPUStatCollection.new_query()
     output = gpustats.jsonify()
-    del output['query_time']
+    output['query_time'] = time.time()
     return json.dumps(output)
 
 class TransClient:
