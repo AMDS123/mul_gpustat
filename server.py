@@ -40,7 +40,7 @@ class TransServer:
                 print("hostname: {}".format(key))
                 gpus = self.stats[key]["gpus"]
                 for index in range(len(gpus)):
-                    print("------------------------------------------------------")
+                    print("---------------------------------------------------------------")
                     gpu = gpus[index]
                     print("[{}] {}".format(index, gpu["name"]))
                     print("memory: {:5d}/{:5d} | used:{:3d}% | power:{:4d}W/{:3}W | temp: {}C".format(
@@ -51,9 +51,9 @@ class TransServer:
                         gpu["enforced.power.limit"],
                         gpu["temperature.gpu"]
                 ))
-                print("======================================================")
+                print("==============================================================")
         if len(keys) == 0:
-            print("======================================================")
+            print("===============================================================")
 
 
 if __name__ == "__main__":
