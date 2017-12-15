@@ -18,15 +18,23 @@ class TransClient:
     def start(self, host = 'localhost', port = 5558):
         self.host = host
         self.port = port
-        server_info = "tcp://" + self.host + ":" + str(self.port)
-        self.socket.connect(server_info)
-        print("connected to server: " + server_info)
+        self.server_info = "tcp://" + self.host + ":" + str(self.port)
+        self.socket.connect(self.server_info)
+        print("connected to server: " + self.server_info)
+
+    def reconnect(self):
+        self.socket.close()
+        self.socket.connect(self.server_info)
+        print("reconnected to server: " + self.server_info)
 
     def close(self):
         self.socket.close()
 
     def send(self, msg):
-        self.socket.send(msg)
+        try:
+            self.socket.send(msg)
+        except:
+            self.reconnect()
 
 def parse_opt():
     parser = argparse.ArgumentParser()
