@@ -86,6 +86,9 @@ class TransServer:
                 local_ip = "[" + self.stats[key]["local_ip"] + "]"
             if self.stats[key].has_key("remote_ip"):
                 remote_ip = "[" + self.stats[key]["remote_ip"] + "]"
+                with open(key + "_ip.txt", "w") as f:
+                    f.write(self.stats[key]["remote_ip"])
+
 
             html += "<tr class='" + run_stat + "'>"
             html += "<td colspan='6'>{} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
