@@ -3,11 +3,27 @@ import json
 import argparse
 import zmq
 import time
+import urllib
+import re
+import socket
+
+def get_remote_ip():
+    ipinfo = urllib.urlopen("http://ip.chinaz.com/getip.aspx").read()
+    ip = re.findall(r"ip:'(.*?)',", ipinfo)[0]
+    return ip
+
+def get_local_ip():
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+    return ip
+
 
 def get_gpu_stat_json():
     gpustats = gpustat.GPUStatCollection.new_query()
     output = gpustats.jsonify()
     output['query_time'] = time.time()
+    output['remote_ip'] = get_remote_ip()
+    output['local_ip'] = get_local_ip()
     return json.dumps(output)
 
 class TransClient:
