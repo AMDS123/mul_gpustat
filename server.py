@@ -46,7 +46,7 @@ class TransServer:
             if self.stats[key].has_key("remote_ip"):
                 remote_ip = self.stats[key]["remote_ip"]
 
-            lines.append("{} ({}) {} {}\n".format(key, run_stat, local_ip, remote_ip))
+            lines.append("{} ({}) [{}] [{}]\n".format(key, run_stat, local_ip, remote_ip))
             #     "====================================================================\n"
             lines.append("--------------------------------------------------------------------\n")
             gpus = self.stats[key]["gpus"]
@@ -88,7 +88,7 @@ class TransServer:
                 remote_ip = self.stats[key]["remote_ip"]
 
             html += "<tr class='" + run_stat + "'>"
-            html += "<td colspan='6'>hostname: {} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
+            html += "<td colspan='6'>{} ({}) [{}] [{}]</td>".format(key, run_stat, local_ip, remote_ip)
             html += "</tr>"
 
             gpus = self.stats[key]["gpus"]
