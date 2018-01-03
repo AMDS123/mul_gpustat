@@ -67,7 +67,7 @@ def parse_opt():
     parser.add_argument('--port', type=int, default=5558,
                     help='port')
     parser.add_argument('--socket_timeout', type=int, default=1,
-                        help='port')
+                        help='socket timeout')
     return parser.parse_args()
 
 if __name__ == "__main__":
