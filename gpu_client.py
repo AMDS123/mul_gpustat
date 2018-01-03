@@ -8,13 +8,21 @@ import re
 import socket
 
 def get_remote_ip():
-    ipinfo = urllib.urlopen("http://ip.chinaz.com/getip.aspx").read()
-    ip = re.findall(r"ip:'(.*?)',", ipinfo)[0]
+    ip = ''
+    try:
+        ipinfo = urllib.urlopen("http://ip.chinaz.com/getip.aspx").read()
+        ip = re.findall(r"ip:'(.*?)',", ipinfo)[0]
+    except:
+        print('ip get error')
     return ip
 
 def get_local_ip():
-    hostname = socket.gethostname()
-    ip = socket.gethostbyname(hostname)
+    ip = ''
+    try:
+        hostname = socket.gethostname()
+        ip = socket.gethostbyname(hostname)
+    except:
+        print('ip get error')
     return ip
 
 

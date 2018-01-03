@@ -18,6 +18,10 @@ class TransServer:
         self.thread.setDaemon(True)
         self.thread.start()
 
+        self.thread_ip = threading.Thread(target=self.write_ip)
+        self.thread_ip.setDaemon(True)
+        self.thread_ip.start()
+
     def run(self):
         while True:
             self.handle()
@@ -86,9 +90,6 @@ class TransServer:
                 local_ip = "[" + self.stats[key]["local_ip"] + "]"
             if self.stats[key].has_key("remote_ip"):
                 remote_ip = "[" + self.stats[key]["remote_ip"] + "]"
-                with open(key + "_ip.txt", "w") as f:
-                    f.write(self.stats[key]["remote_ip"])
-
 
             html += "<tr class='" + run_stat + "'>"
             html += "<td colspan='6'>{} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
@@ -118,6 +119,17 @@ class TransServer:
         html += "</table>"
         with open("stat.html", "w") as f:
             f.writelines(html)
+
+    def write_ip(self):
+        while True:
+            keys = self.stats.keys()
+            for key in keys:
+                if self.stats[key].has_key("remote_ip"):
+                    remote_ip = self.stats[key]["remote_ip"]
+                    with open(key + "_ip.txt", "w") as f:
+                        f.write(remote_ip)
+
+            time.sleep(1)
 
 
 if __name__ == "__main__":
