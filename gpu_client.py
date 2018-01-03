@@ -66,11 +66,15 @@ def parse_opt():
                     help='host')
     parser.add_argument('--port', type=int, default=5558,
                     help='port')
+    parser.add_argument('--socket_timeout', type=int, default=1,
+                        help='port')
     return parser.parse_args()
 
 if __name__ == "__main__":
 
     opt = parse_opt()
+
+    socket.setdefaulttimeout(opt.socket_timeout)
 
     client = TransClient()
     client.start(opt.host, opt.port)
