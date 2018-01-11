@@ -49,11 +49,12 @@ def get_local_ip():
     return ip
 
 
-def get_gpu_stat_json():
+def get_gpu_stat_json(opt):
     gpustats = gpustat.GPUStatCollection.new_query()
     output = gpustats.jsonify()
     output['query_time'] = time.time()
-    output['remote_ip'] = get_remote_ip()
+    if opt.get_remote_ip == 1:
+        output['remote_ip'] = get_remote_ip()
     output['local_ip'] = get_local_ip()
     return json.dumps(output)
 
@@ -91,6 +92,8 @@ def parse_opt():
                     help='port')
     parser.add_argument('--socket_timeout', type=int, default=1,
                         help='socket timeout')
+    parser.add_argument('--get_remote_ip', type=int, default=0,
+                        help='get_remote_ip')
     return parser.parse_args()
 
 if __name__ == "__main__":
@@ -104,7 +107,7 @@ if __name__ == "__main__":
 
     while True:
         try:
-            stat = get_gpu_stat_json()
+            stat = get_gpu_stat_json(opt)
             print(stat)
             client.send(stat)
             time.sleep(1)
