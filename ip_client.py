@@ -47,6 +47,7 @@ class TransClient:
     def __init__(self):
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.PUSH)
+        self.socket.setsockopt(zmq.IPV6, 1)
 
     def start(self, host = 'localhost', port = 5559):
         self.host = host
