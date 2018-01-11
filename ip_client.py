@@ -21,11 +21,11 @@ def get_remote_ip():
     return ip
 
 
-def get_local_ip():
+def get_local_ip(opt):
     ip = ''
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(('www.baidu.com', 80))
+        s.connect((opt.connect_ip, 80))
         ip = s.getsockname()[0]
     except:
         print('ip get error')
@@ -40,7 +40,7 @@ def get_stat_json(opt):
     output['query_time'] = time.time()
     if opt.get_remote_ip == 1:
         output['remote_ip'] = get_remote_ip()
-    output['local_ip'] = get_local_ip()
+    output['local_ip'] = get_local_ip(opt)
     return json.dumps(output)
 
 class TransClient:
@@ -80,6 +80,8 @@ def parse_opt():
                         help='socket timeout')
     parser.add_argument('--get_remote_ip', type=int, default=0,
                         help='get_remote_ip')
+    parser.add_argument('--connect_ip', type=str, default="10.3.9.4",
+                        help='connect_ip')
     return parser.parse_args()
 
 if __name__ == "__main__":
