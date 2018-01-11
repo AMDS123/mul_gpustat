@@ -10,7 +10,7 @@ class TransServer:
     def setup(self):
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.PULL)
-        self.socket.setsockopt("ZMQ_IPV6", 1)
+        self.socket.setsockopt(zmq.IPV6, 1)
         self.socket.bind('tcp://*:5559')
         print('started server')
         self.stats = {}
