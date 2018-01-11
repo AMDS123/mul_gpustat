@@ -81,7 +81,7 @@ class TransServer:
             html += "<td colspan='6'>{} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
             html += "</tr>"
         html += "</table>"
-        with open("stat.html", "w") as f:
+        with open("ip.html", "w") as f:
             f.writelines(html)
 
     def write_ip(self):
