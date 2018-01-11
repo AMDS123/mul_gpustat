@@ -6,23 +6,46 @@ import time
 import urllib
 import re
 import socket
+import requests
+
+# def get_remote_ip():
+#     ip = ''
+#     try:
+#         ipinfo = urllib.urlopen("http://ip.chinaz.com/getip.aspx").read()
+#         ip = re.findall(r"ip:'(.*?)',", ipinfo)[0]
+#     except:
+#         print('ip get error')
+#     return ip
 
 def get_remote_ip():
     ip = ''
     try:
-        ipinfo = urllib.urlopen("http://ip.chinaz.com/getip.aspx").read()
-        ip = re.findall(r"ip:'(.*?)',", ipinfo)[0]
+        url = r'http://1212.ip138.com/ic.asp'
+        r = requests.get(url)
+        txt = r.text
+        ip = txt[txt.find("[") + 1: txt.find("]")]
     except:
         print('ip get error')
     return ip
 
+
+# def get_local_ip():
+#     ip = ''
+#     try:
+#         hostname = socket.gethostname()
+#         ip = socket.gethostbyname(hostname)
+#     except:
+#         print('ip get error')
+#     return ip
+
 def get_local_ip():
     ip = ''
     try:
-        hostname = socket.gethostname()
-        ip = socket.gethostbyname(hostname)
-    except:
-        print('ip get error')
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('www.baidu.com', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
     return ip
 
 
