@@ -44,6 +44,8 @@ def get_local_ip():
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(('www.baidu.com', 80))
         ip = s.getsockname()[0]
+    except:
+        print('ip get error')
     finally:
         s.close()
     return ip
