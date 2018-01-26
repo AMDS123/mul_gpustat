@@ -41,7 +41,7 @@ class TransServer:
         keys = self.stats.keys()
         for key in keys:
             run_stat = "RUNNING"
-            if time.time() - self.stats[key]["time"] > 10:
+            if time.time() - self.stats[key]["time"] > 60:
                 run_stat = "STOP"
 
             local_ip = ""
@@ -67,7 +67,7 @@ class TransServer:
         keys = self.stats.keys()
         for key in keys:
             run_stat = "RUNNING"
-            if time.time() - self.stats[key]["time"] > 5:
+            if time.time() - self.stats[key]["time"] > 60:
                 run_stat = "STOP"
 
             local_ip = ""
