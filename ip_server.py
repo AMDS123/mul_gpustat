@@ -111,4 +111,6 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             print("exit")
             exit(0)
+        except:
+            print("error")
 
