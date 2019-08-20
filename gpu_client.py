@@ -57,7 +57,8 @@ def get_gpu_stat_json(opt):
     output['query_time'] = time.time()
     if opt.get_remote_ip == 1:
         output['remote_ip'] = get_remote_ip()
-    output['local_ip'] = get_local_ip()
+    #output['local_ip'] = get_local_ip()
+    output['hostname'] = '172.18.32.201'
     return json.dumps(output)
 
 class TransClient:
@@ -81,10 +82,7 @@ class TransClient:
         self.socket.close()
 
     def send(self, msg):
-        try:
-            self.socket.send(msg)
-        except:
-            self.reconnect()
+        self.socket.send_string(msg)
 
 def parse_opt():
     parser = argparse.ArgumentParser()

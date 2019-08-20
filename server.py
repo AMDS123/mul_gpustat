@@ -45,9 +45,9 @@ class TransServer:
 
             local_ip = ""
             remote_ip = ""
-            if self.stats[key].has_key("local_ip"):
+            if 'local_ip' in self.stats[key]:
                 local_ip = "[" + self.stats[key]["local_ip"] + "]"
-            if self.stats[key].has_key("remote_ip"):
+            if 'remote_ip' in self.stats[key]:
                 remote_ip = "[" + self.stats[key]["remote_ip"] + "]"
 
             lines.append("{} ({}) {} {}\n".format(key, run_stat, local_ip, remote_ip))
@@ -86,13 +86,13 @@ class TransServer:
 
             local_ip = ""
             remote_ip = ""
-            if self.stats[key].has_key("local_ip"):
+            if 'local_ip' in self.stats[key]:
                 local_ip = "[" + self.stats[key]["local_ip"] + "]"
-            if self.stats[key].has_key("remote_ip"):
+            if 'remote_ip' in self.stats[key]:
                 remote_ip = "[" + self.stats[key]["remote_ip"] + "]"
 
             html += "<tr class='" + run_stat + "'>"
-            html += "<td colspan='6'>{} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
+            html += "<td colspan='7'>{} ({}) {} {}</td>".format(key, run_stat, local_ip, remote_ip)
             html += "</tr>"
 
             gpus = self.stats[key]["gpus"]
@@ -102,7 +102,7 @@ class TransServer:
                 if run_stat1 != "STOP" and gpu["utilization.gpu"] < 5:
                     run_stat1 = "IDEL"
                 html += "<tr class='" + run_stat1 + "'>"
-                html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td>\n".format(
+                html += "<td>[{}]</td> <td>{:3d}%</td> <td>{:4d}W/{:3}W</td> <td>{}C</td> <td>{:5d}MB/{:5d}MB</td> <td>{}</td><td>{}</td>\n".format(
                     index,
                     gpu["utilization.gpu"],
                     gpu["power.draw"],
@@ -110,7 +110,8 @@ class TransServer:
                     gpu["temperature.gpu"],
                     gpu["memory.used"],
                     gpu["memory.total"],
-                    gpu["name"]
+                    gpu["name"],
+		    '|'.join(['{}({}M)'.format(_['username'],_['gpu_memory_usage']) for _ in gpu["processes"]])
                 )
                 html += "</tr>"
         if len(keys) == 0:
@@ -124,7 +125,7 @@ class TransServer:
         while True:
             keys = self.stats.keys()
             for key in keys:
-                if self.stats[key].has_key("remote_ip"):
+                if 'remote_ip' in self.stats[key]:
                     remote_ip = self.stats[key]["remote_ip"]
                     with open(key + "_ip.txt", "w") as f:
                         f.write(remote_ip)
