@@ -6,8 +6,7 @@
 pip install zmq
 
 ### client
-pip install gpustat
-pip install zmq
+pip install gpustat zmq
 
 
 ## RUN
